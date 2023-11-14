@@ -1,4 +1,4 @@
-# COSMO - REACT
+# REACT
 https://ant.design/
 
 # FLEXBOX
