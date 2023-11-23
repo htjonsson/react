@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Space, Table, Tag, message } from 'antd';
 
 // ------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,6 +90,49 @@ const data = [
 const SimpleTable = () => {
     
     const [dataSource, setDataSource] = useState(null);
+    const [response, setReponse] = useState(null);
+    const [errorResponse, setErrorResponse] = useState(null);
+
+    // ------------------------------------------------------------------------------------------------------------------------------------------
+    //
+    //      AXIOS LOGIC
+    //
+    // ------------------------------------------------------------------------------------------------------------------------------------------
+
+    const baseURL = "https://jsonplaceholder.typicode.com/posts";
+
+    const axios_get = () => {
+        axios.get(`${baseURL}`)
+        .then((response) => {
+            if (response.status === 200) {
+                setReponse(response.data);
+            }
+        }).catch(error => {
+            setErrorResponse(error);
+        });
+    };
+
+    const axios_filter = () => {
+        axios.get(`${baseURL}`)
+        .then((response) => {
+            if (response.status === 200) {
+                setReponse(response.data);
+            }
+        }).catch(error => {
+            setErrorResponse(error);
+        });     
+    }
+
+    const axios_delete = (id) => {
+        axios.delete(`${baseURL}/${id}`)
+        .then((response) => {
+            if (response.status === 200) {
+                setErrorResponse(response.data);
+            }
+        }).catch(error => {
+            setErrorResponse(error);
+        });
+    };
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
     //
@@ -97,12 +141,23 @@ const SimpleTable = () => {
     // ------------------------------------------------------------------------------------------------------------------------------------------
 
     useEffect(() => {
-        info('PageInit()');
-
         setTimeout(() => {
+            axios_get();
             setDataSource(data);
         }, 1000);
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (response != null) {
+            info("Response");
+        }
+    }, [response]);
+
+    useEffect(() => {
+        if (errorResponse != null) {
+            errorInfo(errorResponse.message);
+        }
+    }, [errorResponse]);
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
     //
@@ -115,6 +170,10 @@ const SimpleTable = () => {
     const info = (messageText) => {
         messageApi.info(messageText);
     };
+
+    const errorInfo = (messageText) => {
+        messageApi.error(messageText);
+    }
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
     //
