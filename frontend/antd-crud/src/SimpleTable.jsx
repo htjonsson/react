@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Space, Table, Tag, message } from 'antd';
+import UserService from './UserService';
 
 // ------------------------------------------------------------------------------------------------------------------------------------------
 //

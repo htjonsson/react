@@ -21,7 +21,8 @@ const App = () => {
                     padding: '24px 24px',
                 }}
             >
-                <SimpleTable></SimpleTable>
+                <SimpleTable>
+                </SimpleTable>
             </Content>
         </Layout>
     );
