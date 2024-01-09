@@ -49,9 +49,9 @@ const UserDataEntry = (props) => {
                     }>
                     <Form
                         labelCol={{ span: 6 }}
-                        style={{ width: "1000pt" }}
                         labelAlign={"left"}
                     >
+                        <b>Static Bold Text</b>
                         <Row>
                             <Col span={8}>
                                 <Form.Item label="Form Size" name="size">

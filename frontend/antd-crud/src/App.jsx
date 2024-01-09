@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, version } from 'antd';
 import UserTable from './UserTable';
+import TreeView from './TreeView';
 const { Header, Content, Sider } = Layout;
 
 const layoutStyle = {
@@ -40,7 +41,7 @@ const App = () => {
                     Sider
                 </Sider>
                 <Content style={contentStyle}>
-                    <UserTable />
+                    <TreeView />
                 </Content>
             </Layout>
         </Layout>
