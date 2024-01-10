@@ -1,0 +1,107 @@
+[
+	{
+		"instanceName": "simpleWindow",
+		"className": "VkSimpleWindow",
+		"resources": [
+			{
+				"title": "autoRouteCallbacks",
+				"type": "boolean",
+				"value": "true"
+			},
+			{
+				"title": "coprimaryWindow",
+				"type": "boolean",
+				"value": "false"
+			},
+			{
+				"title": "disableIconify",
+				"type": "boolean",
+				"value": "false"
+			},
+			{
+				"title": "disableWindowResize",
+				"type": "boolean",
+				"value": "false"
+			},
+			{
+				"title": "forceChildClass",
+				"type": "boolean",
+				"value": "true"
+			},
+			{
+				"title": "hideTitleBat",
+				"type": "boolean",
+				"value": "false"
+			},
+			{
+				"title": "hideWMBorder",
+				"type": "boolean",
+				"value": "false"
+			}	
+		]
+	},
+	{
+		"instanceName": "bigRedButton",
+		"className": "XmPushButton",
+		"resources": [
+			{
+				"title": "activateCallback",
+				"type": "text",
+				"value": "bickRedButtonCallback( )"
+			},
+			{
+				"title": "coprimaryWindow",
+				"type": "option",
+				"optionType": "alignment",
+				"value": "XmALIGNMENT_CENTER"
+			},
+			{
+				"title": "labelPixmap",
+				"type": "file",
+				"value": ""
+			},
+			{
+				"title": "intialString",
+				"type": "text",
+				"value": "Push Me"
+			},
+			{
+				"title": "labelType",
+				"type": "option",
+				"optionType": "lableType",
+				"value": "XmSTRING"
+			},
+			{
+				"title": "reComputeSize",
+				"type": "boolean",
+				"value": "true"
+			}
+		],
+		"parentResources": 
+		{
+			"label": "Constraint Resources Added By Parent",
+			"resources": [
+				{
+					"title": "childHorizontalAlignment",
+					"type": "option",
+					"optionType": "alignment",
+					"value": "XmALIGNMENT_BEGINNING"
+				},
+				{
+					"title": "childType",
+					"type": "option",
+					"optionType": "alignment",
+					"value": "XmFRAME_WORKAREA_CHILD"
+				},
+				{
+					"title": "childVerticalAlignment",
+					"type": "option",
+					"optionType": "alignment",
+					"value": "XmALIGNMENT_CENTER"
+				}				
+			]
+		}
+	}	
+]
+
+

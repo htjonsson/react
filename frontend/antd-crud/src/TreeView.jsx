@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Tree, Card, Space, Button, Empty, Row, Col, Table, } from 'antd';
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
+import { Tree, Card, Space, Button, Dropdown, Row, Col, Table, } from 'antd';
 
 // ------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -18,6 +19,48 @@ const columns = [
         title: 'Value',
         dataIndex: 'value',
         key: 'value',
+    },
+];
+
+// ------------------------------------------------------------------------------------------------------------------------------------------
+//
+//      MENU ITEMS
+//
+// ------------------------------------------------------------------------------------------------------------------------------------------
+
+const menuItems1 = [
+    {
+        label: <a href="https://www.antgroup.com">1st menu item</a>,
+        key: '0',
+    },
+    {
+        label: <a href="https://www.aliyun.com">2nd menu item</a>,
+        key: '1',
+    },
+    {
+        type: 'divider',
+    },
+    {
+        label: '3rd menu item',
+        key: '3',
+    },
+];
+
+const menuItems2 = [
+    {
+        label: <a href="https://www.antgroup.com">10st menu item</a>,
+        key: '0',
+    },
+    {
+        label: <a href="https://www.aliyun.com">11nd menu item</a>,
+        key: '1',
+    },
+    {
+        type: 'divider',
+    },
+    {
+        label: '3rd menu item',
+        key: '3',
     },
 ];
 
@@ -261,7 +304,8 @@ const tableData = [
 
 const TreeView = () => {
     
-    const [selected, setSelected] = useState("");
+    const [selected, setSelected] = useState('');
+    const [contextMenuItems, setContextMenuItems] = useState(menuItems1)
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
     //
@@ -289,6 +333,20 @@ const TreeView = () => {
 
         setSelected(selectedKeys);
     };
+
+    const onRightClick = (callbackData) => {
+        console.log('rightClick', callbackData);
+
+        console.log(callbackData.event);
+
+        if (callbackData.node.key === "headerPropertyKeys") {
+            console.log('callbackData.event.key');
+            setContextMenuItems(menuItems2);
+        }
+        else {
+            setContextMenuItems(menuItems1); 
+        }
+    }
       
     // ------------------------------------------------------------------------------------------------------------------------------------------
     //
@@ -308,24 +366,31 @@ const TreeView = () => {
             extra={
                 <Space>
                     <Button type="primary">
-                        Drawer
-                    </Button>
-                    <Button type="primary">
-                        Dialog
-                    </Button>
-                    <Button type="primary">
-                        Entry
+                        Save
                     </Button>
                 </Space>
-            }>
+            }>                
             <Row>
                 <Col span={8}>
-                    <Tree
-                        defaultExpandedKeys={['0-0-0']}
-                        defaultSelectedKeys={['0-0-0']}
-                        onSelect={onSelect}
-                        treeData={treeData}
-                    />
+                    <>
+                        <Dropdown menu={{ items: contextMenuItems }} trigger={['click']} >
+                            <a onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                    Actions
+                                </Space>
+                            </a>
+                        </Dropdown>    
+                        <hr/>
+                        <Dropdown menu={{ items: contextMenuItems }} trigger={['contextMenu']} >
+                        <Tree
+                            defaultExpandedKeys={['0-0-0']}
+                            defaultSelectedKeys={['0-0-0']}
+                            onSelect={onSelect}
+                            treeData={treeData}
+                            onRightClick={onRightClick}
+                        />
+                        </Dropdown>                  
+                    </>
                 </Col>
                 <Col span={16}>
                     <>
@@ -338,6 +403,7 @@ const TreeView = () => {
                             showHeader={false}
                             size="small"
                             pagination={false}
+                            
                         />
                         {selected}
                     </>
