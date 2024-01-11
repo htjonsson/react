@@ -68,8 +68,6 @@ const UserDataEntry = (props) => {
                                 </Form.Item>
                             </Col>
                         </Row>
-
-
                         
                         <Form.Item label="Select">
                             <Select>

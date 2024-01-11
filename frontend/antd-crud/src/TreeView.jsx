@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 import { Tree, Card, Space, Button, Dropdown, Row, Col, Table, } from 'antd';
+import TreeViewDrawer from './TreeViewDrawer';
 
 // ------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -10,11 +11,16 @@ import { Tree, Card, Space, Button, Dropdown, Row, Col, Table, } from 'antd';
 
 const columns = [
     {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text) => <a>{text}</a>,
+        title: 'Title',
+        dataIndex: 'title',
+        key: 'title',
+        render: (text) => <a onClick={console.log(text)}>{text}</a>,
     },
+    {
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
+    },    
     {
         title: 'Value',
         dataIndex: 'value',
@@ -173,6 +179,43 @@ const oracleTreeData = [
     },
 ];
 
+const motifTreeData = [
+    {
+        title: 'scrolled_w(xmScrolledWindowWidgetClass)',
+        key: 'scrolled_w',
+        children: [
+            {
+                title: 'main_rc(xmRowColumnWidgetClass)',
+                key: 'main_rc',
+                children: [
+                    {
+                        title: 'form(xmFormWidgetClass)',
+                        key: 'form',
+                        children: [
+                            {
+                                title: 'login(xmToggleButtonWidgetClass)',
+                                key: 'logi',
+                            },
+                            {
+                                title: 'uid(xmLabelGadgetClass)',
+                                key: 'uid',
+                            },
+                            {
+                                title: 'name(xmLabelGadgetClass)',
+                                key: 'name',
+                            },
+                            {
+                                title: 'homedir(xmTextWidgetClass)',
+                                key: 'homedir',
+                            },
+                        ]
+                    },
+                ]
+            }
+        ]
+    }
+]
+
 const treeData = [
     {
         title: 'Forms',
@@ -280,19 +323,46 @@ const treeData = [
 
 const tableData = [
     {
-        key: '1',
-        name: 'John Brown',
-        value: 'New York No. 1 Lake Park',
+        key: 'autoRouteCallbacks',
+        title: 'autoRouteCallbacks',
+        type: 'Boolean',
+        value: 'true'
     },
     {
-        key: '2',
-        name: 'Jim Green',
-        value: 'London No. 1 Lake Park',
+        key: 'coprimaryWindow',
+        title: 'coprimaryWindow',
+        type: 'Boolean',
+        value: 'false'
     },
     {
-        key: '3',
-        name: 'Joe Black',
-        value: 'Sydney No. 1 Lake Park',
+        key: 'disableIconify',
+        title: 'disableIconify',
+        type: 'Boolean',
+        value: 'false'
+    },
+    {
+        key: 'disableWindowResize',
+        title: 'disableWindowResize',
+        type: 'Boolean',
+        value: 'false'
+    },
+    {
+        key: 'forceChildClass',
+        title: 'forceChildClass',
+        type: 'Boolean',
+        value: 'true'
+    },
+    {
+        key: 'hideTitleBat',
+        title: 'hideTitleBat',
+        type: 'Boolean',
+        value: 'false'
+    },
+    {
+        key: 'hideWMBorder',
+        title: 'hideWMBorder',
+        type: 'Boolean',
+        value: 'false'
     },
 ];
 
@@ -306,6 +376,8 @@ const TreeView = () => {
     
     const [selected, setSelected] = useState('');
     const [contextMenuItems, setContextMenuItems] = useState(menuItems1)
+    const [openDrawer, setOpenDrawer] = useState(false)
+    const [resource, setResource] = useState(null);
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
     //
@@ -327,6 +399,22 @@ const TreeView = () => {
     //      EVENT LOGIC
     //
     // ------------------------------------------------------------------------------------------------------------------------------------------
+
+    const onCloseDrawer = () => {
+        setOpenDrawer(false);
+    }
+
+    const onClick = (record) => {
+        setResource(record);
+        setOpenDrawer(true);
+        console.log('onRow', record)
+    }
+
+    const onRow = (record, index) => {
+        return {
+            onClick: (event) => { onClick(record) }, // click row
+        }
+    }
 
     const onSelect = (selectedKeys, info) => {
         console.log('selected', selectedKeys, info);
@@ -373,20 +461,12 @@ const TreeView = () => {
             <Row>
                 <Col span={8}>
                     <>
-                        <Dropdown menu={{ items: contextMenuItems }} trigger={['click']} >
-                            <a onClick={(e) => e.preventDefault()}>
-                                <Space>
-                                    Actions
-                                </Space>
-                            </a>
-                        </Dropdown>    
-                        <hr/>
                         <Dropdown menu={{ items: contextMenuItems }} trigger={['contextMenu']} >
                         <Tree
-                            defaultExpandedKeys={['0-0-0']}
-                            defaultSelectedKeys={['0-0-0']}
+                            defaultExpandedKeys={['homedir']}
+                            defaultSelectedKeys={['scrolled_w']}
+                            treeData={motifTreeData}
                             onSelect={onSelect}
-                            treeData={treeData}
                             onRightClick={onRightClick}
                         />
                         </Dropdown>                  
@@ -394,21 +474,23 @@ const TreeView = () => {
                 </Col>
                 <Col span={16}>
                     <>
-                        <Button type="link">
-                            Modify
-                        </Button>
+                        <b>{selected}</b>
+                        <hr/>
+                        <br/>
+                        <b>Resources:</b>
                         <Table 
                             columns={columns} 
                             dataSource={tableData}
+                            onRow={onRow}
                             showHeader={false}
                             size="small"
-                            pagination={false}
-                            
+                            pagination={false}  
+                            bordered={true}
                         />
-                        {selected}
                     </>
                 </Col>
             </Row>
+            <TreeViewDrawer open={openDrawer} record={resource} onClose={onCloseDrawer}/>
         </Card>
     )
 }

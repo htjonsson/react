@@ -1,0 +1,250 @@
+{
+	"layout": 
+	{
+		"instanceName": "scrolled_w",
+		"children": [
+			{
+				"instanceName" :"main_rc",
+				"children": [
+					{
+						"instanceName" :"form",
+						"children": [
+							{
+								"instanceName": "users->login",
+								"children": []	
+							},
+							{
+								"instanceName": "uid",
+								"children": []	
+							},
+							{
+								"instanceName": "users->name",
+								"children": []	
+							},
+							{
+								"instanceName": "users->homedir",
+								"children": []	
+							},					
+						]
+					}
+				]
+			}
+		]
+	},
+	"resources": [
+		{
+			"instanceName": "scrolled_w",
+			"className": "xmScrolledWindowWidgetClass",
+			"resources": [
+				{
+					"name": "XmNwidth",
+					"type": "int",
+					"value": "500",
+				},
+				{
+					"name": "XmNheight",
+					"type": "int",
+					"value": "300",
+				},
+				{
+					"name": "XmNscrollingPolicy",
+					"type": "XmCScrollingPolicy",
+					"value": "XmAUTOMATIC",
+				}
+			]
+		},
+		{
+			"parentName": "scrolled_w",
+			"instanceName": "main_rc",
+			"className": "xmRowColumnWidgetClass",
+			"resources": [
+			]
+		},
+		{
+			"parentName": "main_rc",
+			"instanceName": "form",
+			"className": "xmFormWidgetClass",
+			"resources": [
+			]
+		},
+		{
+			"parentName": "form",
+			"instanceName": "users->login",
+			"className": "xmToggleButtonWidgetClass",
+			"resources": [
+				{
+					"name": "XmNalignment",
+					"type": "XmCAlignment",
+					"value": "XmALIGNMENT_BEGINNING",
+				}
+			],
+			"layoutResources": [
+				{
+					"name": "XmNtopAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNbottomAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNleftAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNrightAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_POSITION",
+				},
+				{
+					"name": "XmNrightPosition",
+					"type": "int",
+					"value": "15",			
+				}		
+			]
+		},
+		{
+			"parentName": "form",
+			"instanceName": "uid",
+			"className": "xmLabelGadgetClass",
+			"resources": [
+				{
+					"name": "XmNalignment",
+					"type": "XmCAlignment",
+					"value": "XmALIGNMENT_END",
+				}
+			],
+			"layoutResources": [
+				{
+					"name": "XmNtopAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNbottomAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNleftAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_POSITION",
+				},
+				{
+					"name": "XmNleftPosition",
+					"type": "int",
+					"value": "15",
+				},		
+				{
+					"name": "XmNrightAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_POSITION",
+				},
+				{
+					"name": "XmNrightPosition",
+					"type": "int",
+					"value": "20",			
+				}		
+			]
+		},
+		{
+			"parentName": "form",
+			"instanceName": "users->name",
+			"className": "xmLabelGadgetClass",
+			"resources": [
+				{
+					"name": "XmNalignment",
+					"type": "XmCAlignment",
+					"value": "XmALIGNMENT_BEGINNING",
+				}
+			],
+			"layoutResources": [
+				{
+					"name": "XmNtopAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNbottomAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNleftAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_POSITION",
+				},
+				{
+					"name": "XmNleftPosition",
+					"type": "XmCAttachment",
+					"value": "20",
+				},		
+				{
+					"name": "XmNrightAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_POSITION",
+				},
+				{
+					"name": "XmNrightPosition",
+					"type": "int",
+					"value": "50",			
+				}		
+			]
+		},
+		{
+			"parentName": "form",
+			"instanceName": "users->homedir",
+			"className": "xmTextWidgetClass",
+			"resources": [
+				{
+					"name": "XmNeditable",
+					"type": "Boolean",
+					"value": "False",
+				},
+				{
+					"name": "XmNcursorPositionVisible",
+					"type": "Boolean",
+					"value": "False",
+				},
+				{
+					"name": "XmNvalue",
+					"type": "String",
+					"value": "{users->homedir}",
+				}
+			],
+			"layoutResources": [
+				{
+					"name": "XmNtopAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNbottomAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				},
+				{
+					"name": "XmNleftAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_POSITION",
+				},
+				{
+					"name": "XmNleftPosition",
+					"type": "int",
+					"value": "50",
+				},		
+				{
+					"name": "XmNrightAttachment",
+					"type": "XmCAttachment",
+					"value": "XmATTACH_FORM",
+				}	
+			]
+		}
+	]
+}
+
+
+
