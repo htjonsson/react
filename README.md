@@ -6,3 +6,6 @@ https://www.bezkoder.com/react-hooks-file-upload/ <br/>
 
 # FLEXBOX
 https://www.youtube.com/watch?v=phWxA89Dy94&pp=ygUfbGVhcm4gZmxleGJveCAgQ1NTIGluIDggbWludXRlcw%3D%3D
+
+# SAMPLE DATABASE
+https://github.com/harryho/db-samples
