@@ -1,5 +1,5 @@
-import { Button, Table, Modal, Input, Drawer, Space, } from "antd";
-import { useState } from "react";
+import { Button, Table, Modal, Input, Drawer, Space, message, Form, } from "antd";
+import { useState, useEffect } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 // ------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,6 +46,19 @@ const AntDTableCRUD = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [activeRecord, setActiveRecord] = useState(null);
     const [dataSource, setDataSource] = useState(data);
+
+    const [form] = Form.useForm();
+
+    // ------------------------------------------------------------------------------------------------------------------------------------------
+    //
+    //      MESSAGE
+    //
+    // ------------------------------------------------------------------------------------------------------------------------------------------
+
+    const [messageApi, contextHolder] = message.useMessage();
+    const notification = (message) => {
+      messageApi.info(message);
+    };
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
     //
@@ -99,6 +112,19 @@ const AntDTableCRUD = () => {
 
     // ------------------------------------------------------------------------------------------------------------------------------------------
     //
+    //      HOOK LOGIC
+    //
+    // ------------------------------------------------------------------------------------------------------------------------------------------
+
+    useEffect(() => {
+        console.log('useEffect', activeRecord);
+
+        // form.resetFields();
+        form.setFieldsValue(activeRecord);
+    }, [activeRecord]);
+
+    // ------------------------------------------------------------------------------------------------------------------------------------------
+    //
     //      EVENT LOGIC
     //
     // ------------------------------------------------------------------------------------------------------------------------------------------
@@ -139,12 +165,11 @@ const AntDTableCRUD = () => {
     };
 
     const onSave = () => {
-        console.log("onSave");
-
         if (-1 === activeRecord.id) {
             const randomNumber = parseInt(Math.random() * 1000);
             activeRecord.id = randomNumber;            
             setDataSource([ ...dataSource, activeRecord ]);
+            notification("Record created");
         } else { // editing an existing record
             setDataSource((pre) => {
                 return pre.map((rec) => {
@@ -155,6 +180,7 @@ const AntDTableCRUD = () => {
                     }
                 })
             });
+            notification("Record modified");
         }
         resetEditing();
     }
@@ -171,6 +197,7 @@ const AntDTableCRUD = () => {
 
     return (
         <>
+            {contextHolder}
             <Button onClick={onAddRecord}>Add a new Record</Button>
             <Table columns={columns} dataSource={dataSource}></Table>
             
@@ -189,30 +216,39 @@ const AntDTableCRUD = () => {
                     </Space>
                 }
             >
-                <Input
-                    value={activeRecord?.name}
-                    onChange={(e) => {
-                    setActiveRecord((pre) => {
-                        return { ...pre, name: e.target.value };
-                    });
-                    }}
-                />
-                <Input
-                    value={activeRecord?.email}
-                    onChange={(e) => {
-                    setActiveRecord((pre) => {
-                        return { ...pre, email: e.target.value };
-                    });
-                    }}
-                />
-                <Input
-                    value={activeRecord?.address}
-                    onChange={(e) => {
-                    setActiveRecord((pre) => {
-                        return { ...pre, address: e.target.value };
-                    });
-                    }}
-                />
+                <Form form={form} name="validateOnly" layout="vertical" autoComplete="off" initialValues={{activeRecord}}>
+                    <Form.Item name="name" label="Name" rules={[{required: true,},]}>
+                        <Input
+                            onChange={(e) => {
+                                setActiveRecord((pre) => {
+                                    return { ...pre, name: e.target.value };
+                                });
+                            }}
+                        />
+                    </Form.Item>
+                    <Form.Item name="email" label="Email" rules={[{required: true,},]}>
+                        <Input 
+                            onChange={(e) => {
+                                setActiveRecord((pre) => {
+                                    return { ...pre, email: e.target.value };
+                                });
+                            }}
+                        />
+                    </Form.Item>
+                    <Form.Item name="address" label="Address" rules={[{required: true,},]}>
+                        <Input 
+                            onChange={(e) => {
+                                setActiveRecord((pre) => {
+                                    return { ...pre, address: e.target.value };
+                                });
+                            }}
+                        />
+                    </Form.Item>
+                </Form>
+
+                <div style={{ color:'black' }}>
+                    <pre>{JSON.stringify(activeRecord, null, 2)}</pre>
+                </div>
             </Drawer >          
         </>
     )
