@@ -1,39 +1,7 @@
 import { Button, Table, Modal, Input, Drawer, Space, message, Form, } from "antd";
 import { useState, useEffect } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-
-// ------------------------------------------------------------------------------------------------------------------------------------------
-//
-//      DATA
-//
-// ------------------------------------------------------------------------------------------------------------------------------------------
-
-const data = [
-    {
-        id: 1,
-        name: "John",
-        email: "john@gmail.com",
-        address: "John Address",
-    },
-    {
-        id: 2,
-        name: "David",
-        email: "david@gmail.com",
-        address: "David Address",
-    },
-    {
-        id: 3,
-        name: "James",
-        email: "james@gmail.com",
-        address: "James Address",
-    },
-    {
-        id: 4,
-        name: "Sam",
-        email: "sam@gmail.com",
-        address: "Sam Address",
-    },
-];
+import tableService from "./TableService";
 
 // ------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -45,7 +13,7 @@ const AntDTableCRUD = () => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [activeRecord, setActiveRecord] = useState(null);
-    const [dataSource, setDataSource] = useState(data);
+    const [dataSource, setDataSource] = useState(null);
 
     const [form] = Form.useForm();
 
@@ -117,6 +85,11 @@ const AntDTableCRUD = () => {
     // ------------------------------------------------------------------------------------------------------------------------------------------
 
     useEffect(() => {
+        tableService.init();
+        setDataSource(tableService.getAll())
+    }, [])
+
+    useEffect(() => {
         console.log('useEffect', activeRecord);
 
         // form.resetFields();
@@ -150,6 +123,7 @@ const AntDTableCRUD = () => {
             setDataSource((pre) => {
                 return pre.filter((rec) => rec.id !== record.id);
             });
+            tableService.remove(record);
             },
         });
     };
@@ -167,8 +141,9 @@ const AntDTableCRUD = () => {
     const onSave = () => {
         if (-1 === activeRecord.id) {
             const randomNumber = parseInt(Math.random() * 1000);
-            activeRecord.id = randomNumber;            
+            activeRecord.id = randomNumber; 
             setDataSource([ ...dataSource, activeRecord ]);
+            tableService.insert(activeRecord);
             notification("Record created");
         } else { // editing an existing record
             setDataSource((pre) => {
@@ -180,6 +155,7 @@ const AntDTableCRUD = () => {
                     }
                 })
             });
+            tableService.update(activeRecord);
             notification("Record modified");
         }
         resetEditing();
@@ -197,6 +173,7 @@ const AntDTableCRUD = () => {
 
     return (
         <>
+            <a href={""}>Back</a><br/>
             {contextHolder}
             <Button onClick={onAddRecord}>Add a new Record</Button>
             <Table columns={columns} dataSource={dataSource}></Table>

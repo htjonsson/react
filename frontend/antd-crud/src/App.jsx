@@ -35,12 +35,14 @@ const App = () => {
                 Ant Design Version: {version}
             </Header>
             <Layout>
+    {/*
                 <Sider style={siderStyle}
                     collapsible={true}
                     collapsedWidth={'32px'}
                 >
                     Sider
                 </Sider>
+    */}
                 <Content style={contentStyle}>
                     <AntDTableCRUD />
                 </Content>
