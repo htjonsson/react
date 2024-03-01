@@ -35,7 +35,6 @@ const useGetAction = (url) => {
 
     const getAction = useCallback(async (url) => {
         try {
-            debugger;
             const response = await axios.get(url);
             setData(response.data);
         }
@@ -50,16 +49,15 @@ const useGetAction = (url) => {
     return {getAction, data, error, loaded};
 }
 
-/*
-const axiosGet2 = (url) => {
+const usePostAction = (url, payload) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState("");
-    const [loaded, setLoaded] = useState(false);
+    const [loaded, setLoaded] = useState(false);    
 
-    async () => {
+    const postAction = useCallback(async (url) => {
         try {
             debugger;
-            const response = await axios.get(url);
+            const response = await axios.post(url, payload);
             setData(response.data);
         }
         catch (error) {
@@ -68,10 +66,53 @@ const axiosGet2 = (url) => {
         finally {
             setLoaded(true);
         }
-    };
+    }, []);
 
-    return { data, error, loaded };
-};
-*/
+    return {postAction, data, error, loaded};
+}
 
-export { useAxiosGet, useGetAction }
+const usePutAction = (url, payload) => {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState("");
+    const [loaded, setLoaded] = useState(false);    
+
+    const putAction = useCallback(async (url) => {
+        try {
+            debugger;
+            const response = await axios.put(url, payload);
+            setData(response.data);
+        }
+        catch (error) {
+            setError(error.message);
+        }
+        finally {
+            setLoaded(true);
+        }
+    }, []);
+
+    return {putAction, data, error, loaded};
+}
+
+const useDeleteAction = (url) => {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState("");
+    const [loaded, setLoaded] = useState(false);    
+
+    const deleteAction = useCallback(async (url) => {
+        try {
+            debugger;
+            const response = await axios.delete(url);
+            setData(response.data);
+        }
+        catch (error) {
+            setError(error.message);
+        }
+        finally {
+            setLoaded(true);
+        }
+    }, []);
+
+    return {deleteAction, data, error, loaded};
+}
+
+export { useAxiosGet, useGetAction, usePostAction, usePutAction, useDeleteAction }
